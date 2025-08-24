@@ -1,132 +1,121 @@
+// Product data for the application
 export const products = [
   {
     id: 1,
     name: "Fresh Strawberries",
-    category: "Berries",
     price: 4.99,
-    image: "https://images.unsplash.com/photo-1605721886519-1e7b13f2bf57?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHwxfHxzdHJhd2JlcnJpZXMlMjByZWQlMjBiZXJyaWVzJTIwZnJlc2glMjBmcnVpdHxlbnwwfDJ8fHJlZHwxNzU1ODUzNjQwfDA&ixlib=rb-4.1.0&q=85",
-    sale: false
+    image: "/assets/imgs/products/Berries/strawberry.png",
+    category: "Berries",
+    description: "Sweet and juicy organic strawberries"
   },
   {
     id: 2,
-    name: "Organic Blueberries",
+    name: "Blueberries",
+    price: 5.99,
+    image: "/assets/imgs/products/Berries/Blueberries.png",
     category: "Berries",
-    price: 6.50,
-    image: "https://images.unsplash.com/photo-1597816131169-d8ba566bafdd?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHwyfHxibHVlYmVycmllcyUyMGJsdWUlMjBiZXJyaWVzJTIwZnJlc2glMjBmcnVpdHxlbnwwfDJ8fGJsdWV8MTc1NTg1MzY0MHww&ixlib=rb-4.1.0&q=85",
-    sale: true
+    description: "Fresh organic blueberries packed with antioxidants"
   },
   {
     id: 3,
-    name: "Valencia Oranges",
-    category: "Citrus",
-    price: 3.99,
-    image: "https://images.unsplash.com/photo-1532264043222-be99c0b73c8e?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHwxfHxvcmFuZ2VzJTIwY2l0cnVzJTIwZnJ1aXQlMjBmcmVzaCUyMGZydWl0fGVufDB8Mnx8b3JhbmdlfDE3NTU4NTM2NDB8MA&ixlib=rb-4.1.0&q=85",
-    sale: true
+    name: "Watermelon",
+    price: 7.99,
+    image: "/assets/imgs/products/Melons/Watermelon.png",
+    category: "Melons",
+    description: "Sweet and refreshing watermelon"
   },
   {
     id: 4,
-    name: "Ripe Bananas",
-    category: "Tropical",
-    price: 2.99,
-    image: "https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHwxfHxiYW5hbmFzJTIweWVsbG93JTIwZnJ1aXQlMjB0cm9waWNhbCUyMGZydWl0fGVufDB8Mnx8eWVsbG93fDE3NTU4NTM2NDF8MA&ixlib=rb-4.1.0&q=85",
-    sale: false
+    name: "Fresh Fruit Basket",
+    price: 24.99,
+    image: "/assets/imgs/products/Mixed/Fresh Fruit.png",
+    category: "Mixed",
+    description: "Assorted fresh fruits in a beautiful basket"
   },
   {
     id: 5,
-    name: "Honeycrisp Apples",
-    category: "Tree Fruits",
-    price: 5.99,
-    image: "https://images.unsplash.com/photo-1590005354167-6da97870c757?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHw1fHxvcmFuZ2VzJTIwY2l0cnVzJTIwZnJ1aXQlMjBmcmVzaCUyMGZydWl0fGVufDB8Mnx8b3JhbmdlfDE3NTU4NTM2NDB8MA&ixlib=rb-4.1.0&q=85",
-    sale: true
+    name: "Organic Apples",
+    price: 3.99,
+    image: "/assets/imgs/products/Tropical/apples.jpg",
+    category: "Tropical",
+    description: "Crisp and sweet organic apples"
   },
   {
     id: 6,
-    name: "Red Grapes",
-    category: "Vine Fruits",
-    price: 4.50,
-    image: "https://images.unsplash.com/photo-1709039223422-4983b30a70a9?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHwxMHx8Z3JhcGVzJTIwcHVycGxlJTIwZnJ1aXQlMjBncmFwZSUyMGNsdXN0ZXJ8ZW58MHwyfHxwdXJwbGV8MTc1NTg1MzY0MHww&ixlib=rb-4.1.0&q=85",
-    sale: false
+    name: "Bananas",
+    price: 2.99,
+    image: "/assets/imgs/products/Tropical/bananas.jpg",
+    category: "Tropical",
+    description: "Fresh ripe bananas"
   },
   {
     id: 7,
-    name: "Sweet Mango",
-    category: "Tropical",
-    price: 7.99,
-    image: "https://images.unsplash.com/photo-1532264043222-be99c0b73c8e?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHwyfHxtYW5nbyUyMHRyb3BpY2FsJTIwZnJ1aXQlMjB5ZWxsb3clMjBmcnVpdHxlbnwwfDJ8fG9yYW5nZXwxNzU1ODUzNjQ0fDA&ixlib=rb-4.1.0&q=85",
-    sale: false
+    name: "Oranges",
+    price: 4.49,
+    image: "/assets/imgs/products/Citrus/oranges.jpg",
+    category: "Citrus",
+    description: "Juicy sweet oranges"
   },
   {
     id: 8,
-    name: "Golden Pineapple",
-    category: "Tropical",
-    price: 8.99,
-    image: "https://images.unsplash.com/photo-1618871736709-0843f4cfc85b?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHwxfHxwaW5lYXBwbGUlMjB0cm9waWNhbCUyMGZydWl0JTIwc3Bpa3klMjBmcnVpdHxlbnwwfDJ8fHllbGxvd3wxNzU1ODUzNjQ0fDA&ixlib=rb-4.1.0&q=85",
-    sale: true
+    name: "Grapes",
+    price: 6.99,
+    image: "/assets/imgs/products/Berries/grapes.jpg",
+    category: "Berries",
+    description: "Sweet seedless grapes"
   }
 ];
 
 export const categories = [
   {
     id: 1,
-    name: "Berry Collection",
-    description: "Fresh strawberries, blueberries, and other antioxidant-rich berries.",
-    image: "https://images.unsplash.com/photo-1597816131169-d8ba566bafdd?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHwyfHxibHVlYmVycmllcyUyMGJsdWUlMjBiZXJyaWVzJTIwZnJlc2glMjBmcnVpdHxlbnwwfDJ8fGJsdWV8MTc1NTg1MzY0MHww&ixlib=rb-4.1.0&q=85",
-    link: "/berries"
+    name: "Berries",
+    image: "/assets/imgs/categories/berries.jpg",
+    description: "Fresh and sweet berries"
   },
   {
     id: 2,
-    name: "Citrus Varieties",
-    description: "Vitamin C packed oranges, lemons, and other citrus fruits.",
-    image: "https://images.unsplash.com/photo-1532264043222-be99c0b73c8e?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHwxfHxvcmFuZ2VzJTIwY2l0cnVzJTIwZnJ1aXQlMjBmcmVzaCUyMGZydWl0fGVufDB8Mnx8b3JhbmdlfDE3NTU4NTM2NDB8MA&ixlib=rb-4.1.0&q=85",
-    link: "/citrus"
+    name: "Citrus",
+    image: "/assets/imgs/categories/citrus.jpg",
+    description: "Vitamin C rich citrus fruits"
   },
   {
     id: 3,
-    name: "Tropical Fruits",
-    description: "Exotic mangoes, pineapples, and other tropical delights.",
-    image: "https://images.unsplash.com/photo-1618871736709-0843f4cfc85b?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHwxfHxwaW5lYXBwbGUlMjB0cm9waWNhbCUyMGZydWl0JTIwc3Bpa3klMjBmcnVpdHxlbnwwfDJ8fHllbGxvd3wxNzU1ODUzNjQ0fDA&ixlib=rb-4.1.0&q=85",
-    link: "/tropical"
+    name: "Tropical",
+    image: "/assets/imgs/categories/tropical.jpg",
+    description: "Exotic tropical fruits"
+  },
+  {
+    id: 4,
+    name: "Melons",
+    image: "/assets/imgs/categories/melons.jpg",
+    description: "Refreshing melons"
+  },
+  {
+    id: 5,
+    name: "Mixed",
+    image: "/assets/imgs/categories/mixed.jpg",
+    description: "Assorted fruit collections"
   }
-];
-
-export const testimonials = [
-  {
-    name: "Sarah Jones",
-    role: "Health Enthusiast",
-    image: "https://randomuser.me/api/portraits/women/44.jpg",
-    text: "The freshest fruits I've ever ordered online! The strawberries were perfectly ripe and the delivery was incredibly fast.",
-  },
-  {
-    name: "Jessica Foxx",
-    role: "Nutritionist",
-    image: "https://randomuser.me/api/portraits/women/68.jpg",
-    text: "Amazing quality fruits that I recommend to all my clients. The organic blueberries are especially delicious and packed with nutrients.",
-  },
-  {
-    name: "Briana Luke",
-    role: "Chef",
-    image: "https://randomuser.me/api/portraits/women/65.jpg",
-    text: "Perfect ingredients for my restaurant. The tropical fruits arrive fresh and flavorful every time. Excellent service!",
-  },
 ];
 
 export const features = [
   {
     id: 1,
-    title: "Fresh Fruits Daily",
-    description: "Hand-picked fresh fruits delivered daily",
-    icon: "🍎"
+    title: "Fresh & Organic",
+    description: "100% organic fruits sourced from local farms",
+    icon: "🌱"
   },
   {
     id: 2,
-    title: "Free Shipping",
-    description: "Free shipping on orders over $25",
+    title: "Fast Delivery",
+    description: "Same day delivery for maximum freshness",
     icon: "🚚"
   },
   {
     id: 3,
-    title: "100% Satisfaction",
-    description: "Fresh guarantee or your money back",
-    icon: "💰"
+    title: "Quality Guarantee",
+    description: "Money back guarantee if not satisfied",
+    icon: "⭐"
   }
 ];

@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useEffect } from 'react';
-import useLocalStorage from '../hooks/useLocalStorage';
+import { useSelector, useDispatch } from 'react-redux';
 import { useParams, Link as RouterLink, useSearchParams } from 'react-router-dom';
 import {
   Box,
@@ -17,9 +17,10 @@ import {
   Button,
 } from '@mui/material';
 import Header from '../components/Header';
-import ProductGrid from '../components/ProductGrid';
-import Cart from '../components/Cart';
-import { products as allProducts, categories as allCategories } from '../data/products';
+import ProductGrid from '../features/products/components/ProductGrid';
+import Cart from '../features/cart/components/Cart';
+import { getAllProducts, getAllCategories } from '../features/products/services/products';
+import { addToCart, removeFromCart, updateQuantity, clearCart } from '../features/cart/slice/cartSlice';
 
 // Utility to format price values
 const formatPrice = (value) => `$${value.toFixed(2)}`;
@@ -30,27 +31,25 @@ const ShopCategoryPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedCategory = searchParams.get('category') || '';
 
-  // Cart state (mirrors HomePage for quick integration)
+  const dispatch = useDispatch();
+  const cartItems = useSelector(state => state.cart.items);
+  
+  // Cart state
   const [cartOpen, setCartOpen] = useState(false);
-  const [cartItems, setCartItems] = useLocalStorage('cartItems', []);
 
   const handleCartOpen = () => setCartOpen(true);
   const handleCartClose = () => setCartOpen(false);
   const handleAddToCart = (product) => {
-    setCartItems((prev) => {
-      const existing = prev.find((i) => i.id === product.id);
-      if (existing) {
-        return prev.map((i) => (i.id === product.id ? { ...i, quantity: i.quantity + 1 } : i));
-      }
-      return [...prev, { ...product, quantity: 1 }];
-    });
+    dispatch(addToCart(product));
   };
-  const handleRemoveFromCart = (productId) => setCartItems((prev) => prev.filter((i) => i.id !== productId));
-  const handleUpdateQuantity = (productId, quantity) =>
-    setCartItems((prev) => prev.map((i) => (i.id === productId ? { ...i, quantity } : i)));
-
+  const handleRemoveFromCart = (productId) => {
+    dispatch(removeFromCart(productId));
+  };
+  const handleUpdateQuantity = (productId, quantity) => {
+    dispatch(updateQuantity({ id: productId, quantity }));
+  };
   const handleClearCart = () => {
-    setCartItems([]);
+    dispatch(clearCart());
   };
 
   // Page title/description mapping based on slug
@@ -70,8 +69,12 @@ const ShopCategoryPage = () => {
     };
   }, [slug]);
 
+  // Get products and categories data
+  const allProducts = useMemo(() => getAllProducts(), []);
+  const allCategories = useMemo(() => getAllCategories(), []);
+
   // Price range from available products
-  const priceValues = useMemo(() => allProducts.map((p) => p.price), []);
+  const priceValues = useMemo(() => allProducts.map((p) => p.price), [allProducts]);
   const minPrice = useMemo(() => Math.floor(Math.min(...priceValues)), [priceValues]);
   const maxPrice = useMemo(() => Math.ceil(Math.max(...priceValues)), [priceValues]);
   const [priceRange, setPriceRange] = useState([minPrice, maxPrice]);
@@ -86,7 +89,7 @@ const ShopCategoryPage = () => {
       const inCategory = selectedCategory ? p.category === selectedCategory : true;
       return inPrice && inCategory;
     });
-  }, [priceRange, selectedCategory]);
+  }, [priceRange, selectedCategory, allProducts]);
 
   // Pagination
   const perPage = 12;
@@ -100,7 +103,7 @@ const ShopCategoryPage = () => {
   // Best sellers: top by price (as a placeholder metric)
   const bestSellers = useMemo(() => {
     return [...allProducts].sort((a, b) => b.price - a.price).slice(0, 5);
-  }, []);
+  }, [allProducts]);
 
   // Category counts (derived from data)
   const categoryCounts = useMemo(() => {
@@ -108,7 +111,7 @@ const ShopCategoryPage = () => {
     allProducts.forEach((p) => map.set(p.category, (map.get(p.category) || 0) + 1));
     return Array.from(map.entries()) // [category, count]
       .sort((a, b) => a[0].localeCompare(b[0]));
-  }, []);
+  }, [allProducts]);
 
   // When selectedCategory changes, reset to page 1
   useEffect(() => {
@@ -251,7 +254,6 @@ const ShopCategoryPage = () => {
       <Cart
         open={cartOpen}
         onClose={handleCartClose}
-        cartItems={cartItems}
         onRemove={handleRemoveFromCart}
         onUpdateQuantity={handleUpdateQuantity}
         onClearCart={handleClearCart}
