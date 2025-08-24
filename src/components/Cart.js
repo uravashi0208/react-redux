@@ -1,189 +1,461 @@
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
 import {
-  selectCartItems,
-  selectTotalAmount,
-  selectTotalQuantity,
-  removeFromCart,
-  increaseQuantity,
-  decreaseQuantity,
-  clearCart
-} from '../store/slices/cartSlice';
+  Drawer,
+  Box,
+  Typography,
+  IconButton,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  Avatar,
+  Button,
+  ButtonGroup,
+  Paper,
+  CircularProgress,
+  Fade
+} from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import { motion, AnimatePresence } from 'framer-motion';
+import { 
+  cartSlideIn, 
+  cartItemStagger, 
+  cartItemRemove, 
+  quantityChange,
+  cartPulse,
+  successCheckmark,
+  hoverLift,
+  buttonHover,
+  buttonTap
+} from '../utils/animations';
 
-const Cart = () => {
-  const dispatch = useDispatch();
-  const cartItems = useSelector(selectCartItems);
-  const totalAmount = useSelector(selectTotalAmount);
-  const totalQuantity = useSelector(selectTotalQuantity);
+const Cart = ({ open, onClose, cartItems = [], onRemove, onUpdateQuantity }) => {
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [removingItem, setRemovingItem] = useState(null);
 
-  const handleRemoveFromCart = (id) => {
-    dispatch(removeFromCart(id));
+  const totalPrice = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+
+  const handleRemoveItem = async (itemId) => {
+    setRemovingItem(itemId);
+    await new Promise(resolve => setTimeout(resolve, 300));
+    onRemove(itemId);
+    setRemovingItem(null);
   };
 
-  const handleIncreaseQuantity = (id) => {
-    dispatch(increaseQuantity(id));
+  const handleCheckout = async () => {
+    setIsProcessing(true);
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    setIsProcessing(false);
+    setShowSuccess(true);
+    setTimeout(() => {
+      setShowSuccess(false);
+      onClose();
+    }, 1500);
   };
-
-  const handleDecreaseQuantity = (id) => {
-    dispatch(decreaseQuantity(id));
-  };
-
-  const handleClearCart = () => {
-    if (window.confirm('Are you sure you want to clear your cart?')) {
-      dispatch(clearCart());
-    }
-  };
-
-  const handleCheckout = () => {
-    alert('Checkout feature would be implemented here. This is a portfolio demo!');
-  };
-
-  if (cartItems.length === 0) {
-    return (
-      <div className="cart-container">
-        <div className="empty-cart">
-          <h2>Your cart is empty</h2>
-          <p>Add some products to get started!</p>
-          <Link 
-            to="/products" 
-            className="btn" 
-            style={{ 
-              display: 'inline-block', 
-              textDecoration: 'none',
-              marginTop: '1.5rem',
-              width: 'auto',
-              padding: '12px 24px'
-            }}
-          >
-            Shop Now
-          </Link>
-        </div>
-      </div>
-    );
-  }
 
   return (
-    <div className="cart-container">
-      <div style={{ 
-        display: 'flex', 
-        justifyContent: 'space-between', 
-        alignItems: 'center',
-        marginBottom: '2rem'
-      }}>
-        <h1>Shopping Cart ({totalQuantity} items)</h1>
-        <button
-          onClick={handleClearCart}
-          className="btn btn-danger"
-          style={{ width: 'auto', padding: '10px 20px' }}
-        >
-          Clear Cart
-        </button>
-      </div>
-
-      <div>
-        {cartItems.map(item => (
-          <div key={item.id} className="cart-item">
-            <img
-              src={item.image}
-              alt={item.title}
-              className="cart-item-image"
-              onError={(e) => {
-                // Prevent infinite error loops
-                if (e.target.src.includes('placeholder')) return;
-                
-                // Use furniture placeholder images
-                const placeholderImages = [
-                  'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=80&h=80&fit=crop&auto=format',
-                  'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=80&h=80&fit=crop&auto=format',
-                  'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=80&h=80&fit=crop&auto=format'
-                ];
-                const randomIndex = Math.floor(Math.random() * placeholderImages.length);
-                e.target.src = placeholderImages[randomIndex];
-                e.target.classList.add('placeholder');
-              }}
-            />
-            
-            <div className="cart-item-details">
-              <h3 className="cart-item-title">{item.title}</h3>
-              <p className="cart-item-price">${item.price}</p>
-              
-              <div className="quantity-controls">
-                <button
-                  onClick={() => handleDecreaseQuantity(item.id)}
-                  className="quantity-btn"
-                  disabled={item.quantity <= 1}
-                >
-                  -
-                </button>
-                <span className="quantity">{item.quantity}</span>
-                <button
-                  onClick={() => handleIncreaseQuantity(item.id)}
-                  className="quantity-btn"
-                >
-                  +
-                </button>
-              </div>
-              
-              <div style={{ 
-                fontWeight: 'bold', 
-                color: '#007bff',
-                marginTop: '0.5rem'
-              }}>
-                Subtotal: ${item.totalPrice.toFixed(2)}
-              </div>
-            </div>
-
-            <button
-              onClick={() => handleRemoveFromCart(item.id)}
-              className="remove-btn"
-              title="Remove from cart"
-            >
-              ×
-            </button>
-          </div>
-        ))}
-      </div>
-
-      <div className="cart-summary">
-        <div className="cart-total">
-          Total: ${totalAmount.toFixed(2)}
-        </div>
-        
-        <div style={{ 
+    <Drawer
+      anchor="right"
+      open={open}
+      onClose={onClose}
+      PaperProps={{
+        sx: { 
+          width: { xs: '100%', sm: 420 },
+          backgroundColor: '#f8f9fa',
+          backgroundImage: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
+          overflow: 'auto', // Allow scrolling
+          '&::-webkit-scrollbar': {
+            width: '4px',
+          },
+          '&::-webkit-scrollbar-track': {
+            background: 'transparent',
+          },
+          '&::-webkit-scrollbar-thumb': {
+            background: 'rgba(58, 143, 94, 0.3)',
+            borderRadius: '4px',
+            '&:hover': {
+              background: 'rgba(58, 143, 94, 0.5)',
+            }
+          }
+        }
+      }}
+    >
+      <motion.div
+        initial="hidden"
+        animate="visible"
+        variants={cartSlideIn}
+      >
+      <Box 
+        sx={{ 
+          p: 2, 
           display: 'flex', 
-          gap: '1rem',
-          justifyContent: 'flex-end',
-          flexWrap: 'wrap'
-        }}>
-          <Link
-            to="/products"
-            className="btn btn-secondary"
-            style={{ 
-              textDecoration: 'none',
-              display: 'inline-block',
-              width: 'auto',
-              padding: '12px 24px'
+          justifyContent: 'space-between', 
+          alignItems: 'center',
+          backgroundColor: 'white',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
+        }}
+      >
+        <Typography 
+          variant="h6"
+          sx={{
+            fontWeight: 600,
+            display: 'flex',
+            alignItems: 'center'
+          }}
+        >
+          <ShoppingCartIcon sx={{ mr: 1, color: 'primary.main' }} />
+          Shopping Cart
+        </Typography>
+        <IconButton onClick={onClose}>
+          <CloseIcon />
+        </IconButton>
+      </Box>
+
+      {cartItems.length === 0 ? (
+        <Box 
+          sx={{ 
+            p: 4, 
+            display: 'flex', 
+            flexDirection: 'column', 
+            alignItems: 'center', 
+            justifyContent: 'center',
+            height: '100%'
+          }}
+        >
+          <Paper
+            elevation={0}
+            sx={{
+              p: 4,
+              textAlign: 'center',
+              borderRadius: 2,
+              backgroundColor: 'white',
+              maxWidth: 320
             }}
           >
-            Continue Shopping
-          </Link>
-          
-          <button
-            onClick={handleCheckout}
-            className="btn btn-success"
-            style={{ 
-              width: 'auto',
-              padding: '16px 32px',
-              fontSize: '1.1rem',
-              fontWeight: '700'
+            <ShoppingBagIcon 
+              sx={{ 
+                fontSize: 70, 
+                color: 'primary.light', 
+                mb: 2,
+                opacity: 0.8
+              }} 
+            />
+            <Typography 
+              variant="h6" 
+              gutterBottom
+              sx={{ fontWeight: 600 }}
+            >
+              Your cart is empty
+            </Typography>
+            <Typography 
+              variant="body2" 
+              color="text.secondary" 
+              sx={{ 
+                mb: 3, 
+                textAlign: 'center',
+                lineHeight: 1.6
+              }}
+            >
+              Looks like you haven't added any plants to your cart yet. Browse our collection and find your perfect plant!
+            </Typography>
+            <Button 
+              variant="contained" 
+              color="primary" 
+              onClick={onClose}
+              sx={{
+                px: 3,
+                py: 1,
+                boxShadow: '0 4px 12px rgba(58, 143, 94, 0.2)'
+              }}
+            >
+              Continue Shopping
+            </Button>
+          </Paper>
+        </Box>
+      ) : (
+        <>
+          <Box sx={{ flexGrow: 1, overflowY: 'auto', pb: 12 }}>
+            <List 
+              sx={{ 
+                px: 2,
+                py: 2,
+                backgroundColor: 'transparent'
+              }}
+            >
+              <AnimatePresence>
+              {cartItems.map((item) => (
+                <ListItem 
+                  key={item.id}
+                  sx={{ 
+                    py: 2,
+                    px: 2,
+                    mb: 2,
+                    backgroundColor: 'white',
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
+                    borderRadius: 2,
+                    mr: 2,
+                    position: 'relative',
+                    transition: 'all 0.2s ease-in-out',
+                    '&:hover': {
+                      transform: 'translateY(-2px)',
+                      boxShadow: '0 6px 16px rgba(0,0,0,0.12)'
+                    }
+                  }}
+                >
+                  <ListItemAvatar>
+                    <Avatar 
+                      variant="rounded" 
+                      src={item.image} 
+                      alt={item.name}
+                      sx={{ 
+                        width: 70, 
+                        height: 70, 
+                        mr: 2,
+                        borderRadius: 2,
+                        boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+                        transition: 'all 0.2s ease-in-out',
+                        '&:hover': {
+                          transform: 'scale(1.05)',
+                          boxShadow: '0 6px 16px rgba(0,0,0,0.2)'
+                        }
+                      }}
+                    />
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={item.name}
+                    secondary={
+                      <Box sx={{ mt: 1 }}>
+                        <Typography 
+                          variant="body2" 
+                          color="primary.main" 
+                          sx={{ 
+                            fontWeight: 600,
+                            fontSize: '1rem'
+                          }}
+                        >
+                          ${item.price.toFixed(2)}
+                        </Typography>
+                        <Box 
+                          sx={{ 
+                            display: 'flex', 
+                            alignItems: 'center', 
+                            mt: 1.5,
+                            justifyContent: 'space-between'
+                          }}
+                        >
+                          <ButtonGroup 
+                            size="small" 
+                            sx={{ 
+                              border: '1px solid',
+                              borderColor: 'primary.light',
+                              borderRadius: 2,
+                              overflow: 'hidden',
+                              boxShadow: '0 2px 8px rgba(58, 143, 94, 0.1)'
+                            }}
+                          >
+                            <Button
+                              onClick={() => onUpdateQuantity(item.id, Math.max(1, item.quantity - 1))}
+                              disabled={item.quantity <= 1}
+                              sx={{ 
+                                minWidth: 32,
+                                borderRight: '1px solid',
+                                borderColor: 'primary.light',
+                                borderRadius: 0,
+                                color: 'primary.main',
+                                '&:hover': {
+                                  backgroundColor: 'primary.light',
+                                  color: 'white'
+                                }
+                              }}
+                            >
+                              <RemoveIcon fontSize="small" />
+                            </Button>
+                            <Button 
+                              disabled 
+                              sx={{ 
+                                px: 2,
+                                minWidth: 40,
+                                color: 'primary.main',
+                                fontWeight: 700,
+                                backgroundColor: 'primary.50'
+                              }}
+                            >
+                              {item.quantity}
+                            </Button>
+                            <Button
+                              onClick={() => onUpdateQuantity(item.id, item.quantity + 1)}
+                              sx={{ 
+                                minWidth: 32,
+                                borderLeft: '1px solid',
+                                borderColor: 'primary.light',
+                                borderRadius: 0,
+                                color: 'primary.main',
+                                '&:hover': {
+                                  backgroundColor: 'primary.light',
+                                  color: 'white'
+                                }
+                              }}
+                            >
+                              <AddIcon fontSize="small" />
+                            </Button>
+                          </ButtonGroup>
+                          
+                          <IconButton 
+                            edge="end" 
+                            aria-label="delete" 
+                            onClick={() => onRemove(item.id)}
+                            sx={{
+                              color: 'text.secondary',
+                              '&:hover': {
+                                color: 'error.main'
+                              }
+                            }}
+                          >
+                            <DeleteOutlineIcon />
+                          </IconButton>
+                        </Box>
+                      </Box>
+                    }
+                    primaryTypographyProps={{
+                      variant: 'subtitle1',
+                      fontWeight: 600,
+                      sx: {
+                        mb: 0.5,
+                        fontSize: '1rem',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        display: '-webkit-box',
+                        WebkitLineClamp: 1,
+                        WebkitBoxOrient: 'vertical'
+                      }
+                    }}
+                  />
+                </ListItem>
+              ))}
+              </AnimatePresence>
+            </List>
+          </Box>
+
+          <Box 
+            sx={{ 
+              p: 3, 
+              borderTop: '1px solid', 
+              borderColor: 'divider',
+              backgroundColor: 'white',
+              boxShadow: '0 -2px 10px rgba(0,0,0,0.05)',
+              position: 'sticky',
+              bottom: 0,
+              zIndex: 10
             }}
           >
-            Checkout Now →
-          </button>
-        </div>
-      </div>
-    </div>
+            <Box 
+              sx={{ 
+                display: 'flex', 
+                justifyContent: 'space-between', 
+                mb: 3,
+                alignItems: 'center'
+              }}
+            >
+              <Typography 
+                variant="h6"
+                sx={{ fontWeight: 600 }}
+              >
+                Total:
+              </Typography>
+              <Typography 
+                variant="h6" 
+                color="primary.main"
+                sx={{ fontWeight: 700 }}
+              >
+                ${totalPrice.toFixed(2)}
+              </Typography>
+            </Box>
+            <Box sx={{ position: 'relative' }}>
+              <Button 
+                variant="contained" 
+                color="primary" 
+                fullWidth 
+                size="large"
+                onClick={handleCheckout}
+                disabled={isProcessing || showSuccess}
+                sx={{
+                  py: 2,
+                  fontWeight: 700,
+                  fontSize: '1.1rem',
+                  boxShadow: '0 6px 25px rgba(58, 143, 94, 0.4)',
+                  background: 'linear-gradient(135deg, #3a8f5e 0%, #2e7d52 100%)',
+                  '&:hover': {
+                    boxShadow: '0 8px 30px rgba(58, 143, 94, 0.5)',
+                    transform: 'translateY(-2px)',
+                    background: 'linear-gradient(135deg, #2e7d52 0%, #256a45 100%)'
+                  },
+                  '&:disabled': {
+                    background: 'linear-gradient(135deg, #3a8f5e 0%, #2e7d52 100%)',
+                    opacity: showSuccess ? 1 : 0.7
+                  }
+                }}
+              >
+                {showSuccess ? (
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                    <motion.div
+                      initial="hidden"
+                      animate="visible"
+                      variants={successCheckmark}
+                    >
+                      <CheckCircleIcon />
+                    </motion.div>
+                    Success!
+                  </Box>
+                ) : isProcessing ? (
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                    <CircularProgress size={20} thickness={4} sx={{ color: 'white' }} />
+                    Processing...
+                  </Box>
+                ) : (
+                  'Proceed to Checkout'
+                )}
+              </Button>
+              {isProcessing && (
+                <CircularProgress
+                  size={24}
+                  sx={{
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    marginTop: '-12px',
+                    marginLeft: '-12px',
+                  }}
+                />
+              )}
+            </Box>
+            <Button
+              variant="text"
+              color="inherit"
+              fullWidth
+              onClick={onClose}
+              sx={{
+                mt: 1.5,
+                color: 'text.secondary',
+                '&:hover': {
+                  backgroundColor: 'transparent',
+                  color: 'primary.main'
+                }
+              }}
+            >
+              Continue Shopping
+            </Button>
+          </Box>
+        </>
+      )}
+      </motion.div>
+    </Drawer>
   );
 };
 

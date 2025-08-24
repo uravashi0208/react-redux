@@ -1,91 +1,142 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { addToCart, selectCartItemById } from '../store/slices/cartSlice';
+import { 
+  CardContent, 
+  Typography, 
+  Box, 
+  Chip, 
+  Rating, 
+  Button,
+  Paper
+} from '@mui/material';
+import { styled } from '@mui/material/styles';
+import { motion } from 'framer-motion';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import { hoverLift, buttonHover, buttonTap, fadeIn } from '../utils/animations';
 
-const ProductCard = ({ product }) => {
-  const dispatch = useDispatch();
-  const cartItem = useSelector(state => selectCartItemById(state, product.id));
+const StyledCard = styled(Paper)(({ theme }) => ({
+  height: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+  transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+  overflow: 'hidden',
+  boxShadow: 'none',
+  backgroundColor: '#ffffff',
+}));
 
-  const handleAddToCart = () => {
-    dispatch(addToCart(product));
-  };
+const ImageWrapper = styled(Box)(({ theme }) => ({
+  position: 'relative',
+  overflow: 'hidden',
+  height: 240,
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  backgroundColor: '#efeef4',
+  padding: 16
+}));
 
-  // Generate random rating and badge for demo purposes
-  const rating = Math.floor(Math.random() * 2) + 4; // 4-5 stars
-  const reviewCount = Math.floor(Math.random() * 2000) + 100; // 100-2100 reviews
-  
-  // Random badge assignment
-  const badges = ['Hot Sale', 'NEW', '10% OFF', null, null]; // null means no badge
-  const randomBadge = badges[Math.floor(Math.random() * badges.length)];
-  
-  const getBadgeStyle = (badge) => {
-    switch(badge) {
-      case 'Hot Sale':
-        return { background: '#dc3545', color: 'white' };
-      case 'NEW':
-        return { background: '#28a745', color: 'white' };
-      case '10% OFF':
-        return { background: '#ff6b35', color: 'white' };
-      default:
-        return null;
-    }
-  };
+const StyledCardMedia = styled('img')(({ theme }) => ({
+  maxHeight: '100%',
+  maxWidth: '100%',
+  objectFit: 'contain',
+  transition: 'transform 0.5s ease',
+}));
+
+const SaleChip = styled(Chip)(({ theme }) => ({
+  position: 'absolute',
+  top: 16,
+  right: 16,
+  backgroundColor: 'white',
+  color: theme.palette.text.primary,
+  fontWeight: 600,
+  fontSize: '0.75rem',
+  height: 28,
+  boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+  zIndex: 2
+}));
+
+const AddToCartButton = styled(Button)(({ theme }) => ({
+  backgroundColor: theme.palette.primary.main,
+  color: 'white',
+  padding: '8px 16px',
+  fontWeight: 600,
+  fontSize: '0.875rem',
+  textTransform: 'none',
+}));
+
+const ProductCard = ({ product, onAddToCart }) => {
+  const { name, category, price, image, sale } = product;
 
   return (
-    <div className="product-card">
-      <div className="product-image-container">
-        {randomBadge && (
-          <span className="product-badge" style={getBadgeStyle(randomBadge)}>
-            {randomBadge}
-          </span>
-        )}
-        <img
-          src={product.image}
-          alt={product.title}
-          className="product-image"
-          onError={(e) => {
-            // Prevent infinite error loops
-            if (e.target.src.includes('placeholder')) return;
-            
-            // Use a reliable placeholder service with furniture images
-            const placeholderImages = [
-              'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&h=300&fit=crop&auto=format',
-              'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&h=300&fit=crop&auto=format',
-              'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&h=300&fit=crop&auto=format',
-              'https://images.unsplash.com/photo-1586105251261-72a756497a11?w=400&h=300&fit=crop&auto=format',
-              'https://images.unsplash.com/photo-1549497538-303791108f95?w=400&h=300&fit=crop&auto=format'
-            ];
-            const randomIndex = Math.floor(Math.random() * placeholderImages.length);
-            e.target.src = placeholderImages[randomIndex];
-            e.target.classList.add('placeholder');
-          }}
+    <StyledCard 
+      component={motion.div}
+      variants={fadeIn}
+      whileHover={hoverLift}
+      elevation={0}
+    >
+      <ImageWrapper>
+        <StyledCardMedia
+          src={image}
+          alt={name}
         />
-        <div className="product-overlay">
-          <button className="quick-action-btn">♡</button>
-          <button className="quick-action-btn">👁</button>
-        </div>
-      </div>
+        {sale && <SaleChip label="Sale!" />}
+      </ImageWrapper>
       
-      <div className="product-content">
-        <h3 className="product-title">{product.title}</h3>
-        
-        <div className="product-rating">
-          <span className="stars">
-            {'★'.repeat(rating)}{'☆'.repeat(5-rating)}
-          </span>
-          <span>({reviewCount.toLocaleString()})</span>
-        </div>
-        
-        <div className="product-price">${product.price}</div>
-        
-        <button
-          onClick={handleAddToCart}
-          className={`btn ${cartItem ? 'btn-success' : ''}`}
+      <CardContent sx={{ flexGrow: 1, p: 2.5, textAlign: 'left' }}>
+        <Typography 
+          component={motion.p}
+          variant="body2" 
+          color="text.secondary"
+          sx={{ mb: 0.5, fontWeight: 500, fontSize: '0.875rem' }}
         >
-          {cartItem ? `In Cart (${cartItem.quantity})` : 'Add to Cart'}
-        </button>
-      </div>
-    </div>
+          {category}
+        </Typography>
+        
+        <Typography 
+          component={motion.h3}
+          variant="h6" 
+          sx={{ 
+            mb: 1,
+            fontWeight: 600,
+            fontSize: '1rem',
+            color: '#2B2F38',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            display: '-webkit-box',
+            WebkitLineClamp: 1,
+            WebkitBoxOrient: 'vertical'
+          }}
+        >
+          {name}
+        </Typography>
+        
+        <Box sx={{ display: 'none', alignItems: 'center', mb: 1 }}>
+          <Rating value={0} readOnly precision={0.5} size="small" />
+        </Box>
+        
+        <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+          <Typography 
+            component={motion.span}
+            variant="h6" 
+            color="primary.main"
+            sx={{ fontWeight: 700, fontSize: '1rem' }}
+          >
+            ${price.toFixed(2)}
+          </Typography>
+        </Box>
+        
+        <AddToCartButton
+          component={motion.button}
+          whileHover={buttonHover}
+          whileTap={buttonTap}
+          variant="contained"
+          disableElevation
+          startIcon={<AddShoppingCartIcon />}
+          onClick={() => onAddToCart(product)}
+          fullWidth
+        >
+          Add to Cart
+        </AddToCartButton>
+      </CardContent>
+    </StyledCard>
   );
 };
 
