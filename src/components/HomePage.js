@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import useLocalStorage from '../hooks/useLocalStorage';
 import { Box } from '@mui/material';
 import { motion } from 'framer-motion';
 import Header from './Header';
@@ -13,7 +14,7 @@ import { staggerContainer } from '../utils/animations';
 
 const HomePage = () => {
   const [cartOpen, setCartOpen] = useState(false);
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useLocalStorage('cartItems', []);
 
   const handleCartOpen = () => {
     setCartOpen(true);
@@ -56,6 +57,10 @@ const HomePage = () => {
     );
   };
 
+  const handleClearCart = () => {
+    setCartItems([]);
+  };
+
   return (
     <Box component={motion.div}
       variants={staggerContainer}
@@ -75,6 +80,7 @@ const HomePage = () => {
         cartItems={cartItems}
         onRemove={handleRemoveFromCart}
         onUpdateQuantity={handleUpdateQuantity}
+        onClearCart={handleClearCart}
       />
     </Box>
   );

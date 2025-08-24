@@ -23,6 +23,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import { 
   cartSlideIn, 
   cartItemStagger, 
@@ -35,7 +36,8 @@ import {
   buttonTap
 } from '../utils/animations';
 
-const Cart = ({ open, onClose, cartItems = [], onRemove, onUpdateQuantity }) => {
+const Cart = ({ open, onClose, cartItems = [], onRemove, onUpdateQuantity, onClearCart }) => {
+  const navigate = useNavigate();
   const [isProcessing, setIsProcessing] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [removingItem, setRemovingItem] = useState(null);
@@ -51,13 +53,10 @@ const Cart = ({ open, onClose, cartItems = [], onRemove, onUpdateQuantity }) => 
 
   const handleCheckout = async () => {
     setIsProcessing(true);
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    await new Promise(resolve => setTimeout(resolve, 1000));
     setIsProcessing(false);
-    setShowSuccess(true);
-    setTimeout(() => {
-      setShowSuccess(false);
-      onClose();
-    }, 1500);
+    onClose();
+    navigate('/checkout');
   };
 
   return (
@@ -415,7 +414,7 @@ const Cart = ({ open, onClose, cartItems = [], onRemove, onUpdateQuantity }) => 
                   </Box>
                 ) : isProcessing ? (
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                    <CircularProgress size={20} thickness={4} sx={{ color: 'white' }} />
+                    {/* <CircularProgress size={20} thickness={4} sx={{ color: 'white' }} /> */}
                     Processing...
                   </Box>
                 ) : (

@@ -1,4 +1,5 @@
 import React, { useMemo, useState, useEffect } from 'react';
+import useLocalStorage from '../hooks/useLocalStorage';
 import { useParams, Link as RouterLink, useSearchParams } from 'react-router-dom';
 import {
   Box,
@@ -31,7 +32,7 @@ const ShopCategoryPage = () => {
 
   // Cart state (mirrors HomePage for quick integration)
   const [cartOpen, setCartOpen] = useState(false);
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useLocalStorage('cartItems', []);
 
   const handleCartOpen = () => setCartOpen(true);
   const handleCartClose = () => setCartOpen(false);
@@ -47,6 +48,10 @@ const ShopCategoryPage = () => {
   const handleRemoveFromCart = (productId) => setCartItems((prev) => prev.filter((i) => i.id !== productId));
   const handleUpdateQuantity = (productId, quantity) =>
     setCartItems((prev) => prev.map((i) => (i.id === productId ? { ...i, quantity } : i)));
+
+  const handleClearCart = () => {
+    setCartItems([]);
+  };
 
   // Page title/description mapping based on slug
   const { title, description } = useMemo(() => {
@@ -249,6 +254,7 @@ const ShopCategoryPage = () => {
         cartItems={cartItems}
         onRemove={handleRemoveFromCart}
         onUpdateQuantity={handleUpdateQuantity}
+        onClearCart={handleClearCart}
       />
     </Box>
   );
