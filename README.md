@@ -2,6 +2,8 @@
 
 A modern, responsive e-commerce web application built with React.js and Redux Toolkit. This project demonstrates advanced state management, modern React patterns, and a clean, professional UI perfect for showcasing web development skills.
 
+Live URL: https://react-redux-two-gamma.vercel.app/
+
 ## ✨ Features
 
 - **Redux Toolkit State Management**: Modern Redux implementation with slices
@@ -165,22 +167,9 @@ This project demonstrates:
 - **Professional UI/UX**: Clean, intuitive interface design
 - **Code Organization**: Clear project structure and separation of concerns
 
-## 🚀 Deployment
-
-The app can be deployed to various platforms:
-
-- **Netlify**: Drag and drop the `build` folder
-- **Vercel**: Connect GitHub repository
-- **GitHub Pages**: Use `gh-pages` package
-- **Heroku**: Add buildpack for create-react-app
-
 ## 📄 License
 
 This project is open source and available under the [MIT License](LICENSE).
-
-## 🤝 Contributing
-
-This is a portfolio project, but suggestions and improvements are welcome!
 
 ---
 
