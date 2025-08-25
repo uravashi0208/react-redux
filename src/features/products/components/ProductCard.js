@@ -1,12 +1,4 @@
-import { 
-  CardContent, 
-  Typography, 
-  Box, 
-  Chip, 
-  Rating, 
-  Button,
-  Paper
-} from '@mui/material';
+import { CardContent, Typography, Box, Chip, Rating, Button, Paper } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { motion } from 'framer-motion';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
@@ -55,7 +47,7 @@ const SaleChip = styled(Chip)(({ theme }) => ({
   fontSize: '0.75rem',
   height: 28,
   boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-  zIndex: 2
+  zIndex: 2,
 }));
 
 const AddToCartButton = styled(Button)(({ theme }) => ({
@@ -69,38 +61,34 @@ const AddToCartButton = styled(Button)(({ theme }) => ({
 
 const ProductCard = ({ product, onAddToCart }) => {
   const { name, category, price, image, sale } = product;
-  const isOrganicApples = name === "Organic Apples";
+  const isOrganicApples = name === 'Organic Apples';
 
   return (
-    <StyledCard 
+    <StyledCard
       // component={motion.div}
       variants={fadeIn}
       whileHover={hoverLift}
       elevation={0}
     >
       <ImageWrapper>
-        <StyledCardMedia
-          src={image}
-          alt={name}
-          isTransparent={isOrganicApples}
-        />
+        <StyledCardMedia src={image} alt={name} isTransparent={isOrganicApples} />
         {sale && <SaleChip label="Sale!" />}
       </ImageWrapper>
-      
+
       <CardContent sx={{ flexGrow: 1, p: 2.5, textAlign: 'left' }}>
-        <Typography 
+        <Typography
           component={motion.p}
-          variant="body2" 
+          variant="body2"
           color="text.secondary"
           sx={{ mb: 0.5, fontWeight: 500, fontSize: '0.875rem' }}
         >
           {category}
         </Typography>
-        
-        <Typography 
+
+        <Typography
           component={motion.h3}
-          variant="h6" 
-          sx={{ 
+          variant="h6"
+          sx={{
             mb: 1,
             fontWeight: 600,
             fontSize: '1rem',
@@ -109,27 +97,27 @@ const ProductCard = ({ product, onAddToCart }) => {
             textOverflow: 'ellipsis',
             display: '-webkit-box',
             WebkitLineClamp: 1,
-            WebkitBoxOrient: 'vertical'
+            WebkitBoxOrient: 'vertical',
           }}
         >
           {name}
         </Typography>
-        
+
         <Box sx={{ display: 'none', alignItems: 'center', mb: 1 }}>
           <Rating value={0} readOnly precision={0.5} size="small" />
         </Box>
-        
+
         <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-          <Typography 
+          <Typography
             component={motion.span}
-            variant="h6" 
+            variant="h6"
             color="primary.main"
             sx={{ fontWeight: 700, fontSize: '1rem' }}
           >
             ${price.toFixed(2)}
           </Typography>
         </Box>
-        
+
         <AddToCartButton
           component={motion.button}
           whileHover={buttonHover}

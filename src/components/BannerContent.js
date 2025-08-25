@@ -3,10 +3,10 @@ import { Box, Typography, Button } from '@mui/material';
 
 const BannerContent = () => {
   return (
-    <Box 
-      sx={{ 
+    <Box
+      sx={{
         maxWidth: { xs: '100%', md: '55%' },
-        pl: { md: 3 }
+        pl: { md: 3 },
       }}
     >
       <Typography
@@ -31,13 +31,13 @@ const BannerContent = () => {
             height: 2,
             backgroundColor: 'primary.main',
             transform: 'translateY(-50%)',
-            boxShadow: '0 1px 3px rgba(0,0,0,0.5)'
-          }
+            boxShadow: '0 1px 3px rgba(0,0,0,0.5)',
+          },
         }}
       >
         Best Quality Fruits
       </Typography>
-      
+
       <Typography
         variant="h1"
         sx={{
@@ -48,12 +48,12 @@ const BannerContent = () => {
           fontWeight: 700,
           lineHeight: 1.1,
           letterSpacing: '-0.5px',
-          filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.8))'
+          filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.8))',
         }}
       >
         Amazing Variety Of Fresh Fruits Starting Just $3
       </Typography>
-      
+
       <Button
         variant="contained"
         color="primary"
@@ -71,9 +71,9 @@ const BannerContent = () => {
           '&:hover': {
             boxShadow: '0 6px 20px rgba(0,0,0,0.4)',
             transform: 'translateY(-3px)',
-            border: '2px solid rgba(255,255,255,0.2)'
+            border: '2px solid rgba(255,255,255,0.2)',
           },
-          transition: 'all 0.3s ease'
+          transition: 'all 0.3s ease',
         }}
       >
         Shop Now

@@ -11,38 +11,38 @@ const theme = createTheme({
       main: '#ff6b35',
       light: '#ff9566',
       dark: '#c53d06',
-      contrastText: '#ffffff'
+      contrastText: '#ffffff',
     },
     secondary: {
       main: '#4caf50',
       light: '#80e27e',
       dark: '#087f23',
-      contrastText: '#ffffff'
+      contrastText: '#ffffff',
     },
     background: {
       default: '#ffffff',
-      paper: '#f5f5f5'
+      paper: '#f5f5f5',
     },
     text: {
       primary: '#333333',
-      secondary: '#666666'
-    }
+      secondary: '#666666',
+    },
   },
   typography: {
     fontFamily: '"Poppins", "Roboto", "Helvetica", "Arial", sans-serif',
     h1: {
       fontWeight: 700,
-      letterSpacing: '-0.5px'
+      letterSpacing: '-0.5px',
     },
     h5: {
       fontWeight: 600,
       textTransform: 'uppercase',
-      letterSpacing: '1.5px'
-    }
+      letterSpacing: '1.5px',
+    },
   },
   shape: {
-    borderRadius: 8
-  }
+    borderRadius: 8,
+  },
 });
 
 const App = () => {

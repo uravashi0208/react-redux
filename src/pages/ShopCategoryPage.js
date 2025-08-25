@@ -20,7 +20,12 @@ import Header from '../components/Header';
 import ProductGrid from '../features/products/components/ProductGrid';
 import Cart from '../features/cart/components/Cart';
 import { getAllProducts, getAllCategories } from '../features/products/services/products';
-import { addToCart, removeFromCart, updateQuantity, clearCart } from '../features/cart/slice/cartSlice';
+import {
+  addToCart,
+  removeFromCart,
+  updateQuantity,
+  clearCart,
+} from '../features/cart/slice/cartSlice';
 
 // Utility to format price values
 const formatPrice = (value) => `$${value.toFixed(2)}`;
@@ -32,8 +37,8 @@ const ShopCategoryPage = () => {
   const selectedCategory = searchParams.get('category') || '';
 
   const dispatch = useDispatch();
-  const cartItems = useSelector(state => state.cart.items);
-  
+  const cartItems = useSelector((state) => state.cart.items);
+
   // Cart state
   const [cartOpen, setCartOpen] = useState(false);
 
@@ -138,7 +143,11 @@ const ShopCategoryPage = () => {
         <Typography variant="h3" sx={{ fontWeight: 700, mb: 1.5 }}>
           {title}
         </Typography>
-        <Typography variant="body1" color="text.secondary" sx={{ mb: 3, maxWidth: 900, lineHeight: 1.7 }}>
+        <Typography
+          variant="body1"
+          color="text.secondary"
+          sx={{ mb: 3, maxWidth: 900, lineHeight: 1.7 }}
+        >
           {description}
         </Typography>
 
@@ -201,7 +210,13 @@ const ShopCategoryPage = () => {
                       component="img"
                       src={p.image}
                       alt={p.name}
-                      sx={{ width: 60, height: 60, objectFit: 'cover', borderRadius: 1, background: '#efeef4' }}
+                      sx={{
+                        width: 60,
+                        height: 60,
+                        objectFit: 'cover',
+                        borderRadius: 1,
+                        background: '#efeef4',
+                      }}
                     />
                     <Box sx={{ flex: 1 }}>
                       <Typography variant="body2" sx={{ fontWeight: 600, lineHeight: 1.2 }}>
@@ -219,7 +234,9 @@ const ShopCategoryPage = () => {
 
           {/* Main content */}
           <Box sx={{ flex: 1 }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
+            <Box
+              sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}
+            >
               <Typography variant="body2" color="text.secondary">
                 Showing {filtered.length === 0 ? 0 : (page - 1) * perPage + 1}–
                 {Math.min(page * perPage, filtered.length)} of {filtered.length} results

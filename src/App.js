@@ -6,7 +6,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { store, persistor } from './app/store';
 import theme from './theme';
 import HomePage from './components/HomePage';
-import ShopCategoryPage from './pages/ShopCategoryPage.jsx';
+import ShopCategoryPage from './pages/ShopCategoryPage';
 import CheckoutPage from './features/checkout/CheckoutPage';
 
 function App() {

@@ -11,11 +11,16 @@ import HelpSection from './HelpSection';
 import CTASection from './CTASection';
 import Cart from '../features/cart/components/Cart';
 import { staggerContainer } from '../utils/animations';
-import { addToCart, removeFromCart, updateQuantity, clearCart } from '../features/cart/slice/cartSlice';
+import {
+  addToCart,
+  removeFromCart,
+  updateQuantity,
+  clearCart,
+} from '../features/cart/slice/cartSlice';
 
 const HomePage = () => {
   const [cartOpen, setCartOpen] = useState(false);
-  const cartItems = useSelector(state => state.cart.items);
+  const cartItems = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
 
   const handleCartOpen = () => {
@@ -46,11 +51,7 @@ const HomePage = () => {
   };
 
   return (
-    <Box component={motion.div}
-      variants={staggerContainer}
-      initial="hidden"
-      animate="visible"
-    >
+    <Box component={motion.div} variants={staggerContainer} initial="hidden" animate="visible">
       <Header cartItems={cartItems} onCartOpen={handleCartOpen} />
       <HeroBanner />
       <Features />
@@ -58,9 +59,9 @@ const HomePage = () => {
       <FeaturedProducts onAddToCart={handleAddToCart} />
       <HelpSection />
       <CTASection />
-      <Cart 
-        open={cartOpen} 
-        onClose={handleCartClose} 
+      <Cart
+        open={cartOpen}
+        onClose={handleCartClose}
         cartItems={cartItems}
         onRemove={handleRemoveFromCart}
         onUpdateQuantity={handleUpdateQuantity}

@@ -21,7 +21,7 @@ const LogoContainer = styled(Box)(({ theme }) => ({
     height: '70%',
     borderRadius: '50%',
     background: 'rgba(255, 255, 255, 0.2)',
-  }
+  },
 }));
 
 const FruitIcon = styled('div')(({ theme }) => ({

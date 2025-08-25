@@ -1,14 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { 
-  addToCart, 
-  removeFromCart, 
-  updateQuantity, 
-  clearCart 
-} from '../slice/cartSlice';
+import { addToCart, removeFromCart, updateQuantity, clearCart } from '../slice/cartSlice';
 
 export const useCart = () => {
   const dispatch = useDispatch();
-  const cart = useSelector(state => state.cart);
+  const cart = useSelector((state) => state.cart);
 
   const addItemToCart = (product, quantity = 1) => {
     dispatch(addToCart({ ...product, quantity }));
@@ -27,7 +22,7 @@ export const useCart = () => {
   };
 
   const getCartTotal = () => {
-    return cart.items.reduce((total, item) => total + (item.price * item.quantity), 0);
+    return cart.items.reduce((total, item) => total + item.price * item.quantity, 0);
   };
 
   const getCartItemCount = () => {
@@ -35,7 +30,7 @@ export const useCart = () => {
   };
 
   const isInCart = (productId) => {
-    return cart.items.some(item => item.id === productId);
+    return cart.items.some((item) => item.id === productId);
   };
 
   return {

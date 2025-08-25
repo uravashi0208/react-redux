@@ -5,10 +5,10 @@ import { fadeIn, slideUp, buttonHover, buttonTap } from '../utils/animations';
 
 const CTASection = () => {
   return (
-    <Box 
+    <Box
       component={motion.section}
       variants={fadeIn}
-      sx={{ 
+      sx={{
         backgroundImage: `url('/assets/imgs/clients/Fresh Fruit.png')`,
         color: 'white',
         position: 'relative',
@@ -21,57 +21,58 @@ const CTASection = () => {
         alignItems: 'center',
       }}
     >
-      <Container 
-        maxWidth="lg" 
-        sx={{ 
-          position: 'relative', 
+      <Container
+        maxWidth="lg"
+        sx={{
+          position: 'relative',
           textAlign: 'center',
-          pb: 50
+          pb: 50,
         }}
       >
-        <Box 
-          sx={{ 
+        <Box
+          sx={{
             maxWidth: 800,
-            mx: 'auto'
+            mx: 'auto',
           }}
         >
-          <Typography 
+          <Typography
             component={motion.h2}
             variants={slideUp}
-            variant="h2" 
-            sx={{ 
+            variant="h2"
+            sx={{
               color: '#2B2F38',
               mb: 3,
               fontWeight: 700,
               fontSize: { xs: '2rem', sm: '2.5rem', md: '2.66rem' },
-              lineHeight: 1.2
+              lineHeight: 1.2,
             }}
           >
             Interested? Shop Our Fresh Fruit Collection!
           </Typography>
-          
-          <Typography 
+
+          <Typography
             component={motion.p}
             variants={slideUp}
-            variant="body1" 
-            sx={{ 
-              mb: { xs: 4, md: 5 }, 
+            variant="body1"
+            sx={{
+              mb: { xs: 4, md: 5 },
               maxWidth: 700,
               mx: 'auto',
               lineHeight: 1.8,
               fontSize: { xs: '0.9375rem', md: '1rem' },
-              color: '#555'
+              color: '#555',
             }}
           >
-            Discover the freshest, most delicious fruits sourced directly from local farms. From sweet berries to tropical delights, we have everything you need for a healthy lifestyle.
+            Discover the freshest, most delicious fruits sourced directly from local farms. From
+            sweet berries to tropical delights, we have everything you need for a healthy lifestyle.
           </Typography>
-          
-          <Button 
+
+          <Button
             component={motion.button}
             variants={slideUp}
             whileHover={buttonHover}
             whileTap={buttonTap}
-            variant="contained" 
+            variant="contained"
             size="large"
             href="/store"
             sx={{
@@ -83,7 +84,7 @@ const CTASection = () => {
               fontWeight: 600,
               textTransform: 'uppercase',
               fontSize: '0.875rem',
-              letterSpacing: 1
+              letterSpacing: 1,
             }}
           >
             GO TO SHOP

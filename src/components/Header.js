@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  AppBar, 
-  Toolbar, 
-  Typography, 
-  Button, 
-  Container, 
-  Box, 
-  IconButton, 
-  Drawer, 
-  List, 
-  ListItem, 
-  ListItemText, 
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Button,
+  Container,
+  Box,
+  IconButton,
+  Drawer,
+  List,
+  ListItem,
+  ListItemText,
   Badge,
   useMediaQuery,
   Divider,
   ListItemIcon,
-  Link
+  Link,
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -62,18 +62,15 @@ const Header = ({ cartItems = [], onCartOpen }) => {
 
   const navItems = [
     { name: 'Home', path: '/', icon: <HomeIcon /> },
-    { 
-      name: 'Store', 
-      path: '/store', 
+    {
+      name: 'Store',
+      path: '/store',
       icon: <StoreIcon />,
     },
   ];
 
   const drawerList = (
-    <Box
-      sx={{ width: { xs: '100%', sm: 300 } }}
-      role="presentation"
-    >
+    <Box sx={{ width: { xs: '100%', sm: 300 } }} role="presentation">
       <Box sx={{ p: 2, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <FruitLogo size={35} />
@@ -83,7 +80,7 @@ const Header = ({ cartItems = [], onCartOpen }) => {
             component="span"
             sx={{
               fontWeight: 700,
-              color: 'primary.main'
+              color: 'primary.main',
             }}
           >
             Fresh Fruits
@@ -97,23 +94,21 @@ const Header = ({ cartItems = [], onCartOpen }) => {
       <List sx={{ pt: 2 }}>
         {navItems.map((item) => (
           <React.Fragment key={item.name}>
-            <ListItem 
-              button 
-              component="a" 
+            <ListItem
+              button
+              component="a"
               href={item.path}
               onClick={item.hasSubmenu ? null : toggleDrawer(false)}
-              sx={{ 
+              sx={{
                 py: 1.5,
               }}
             >
-              <ListItemIcon sx={{ minWidth: 40, color: 'primary.main' }}>
-                {item.icon}
-              </ListItemIcon>
-              <ListItemText 
-                primary={item.name} 
-                primaryTypographyProps={{ 
+              <ListItemIcon sx={{ minWidth: 40, color: 'primary.main' }}>{item.icon}</ListItemIcon>
+              <ListItemText
+                primary={item.name}
+                primaryTypographyProps={{
                   fontWeight: 500,
-                  fontSize: '1rem'
+                  fontSize: '1rem',
                 }}
               />
               {item.hasSubmenu && <KeyboardArrowDownIcon />}
@@ -125,14 +120,14 @@ const Header = ({ cartItems = [], onCartOpen }) => {
   );
 
   return (
-    <AppBar 
-      position="fixed" 
-      color="default" 
+    <AppBar
+      position="fixed"
+      color="default"
       elevation={0}
       sx={{
         backgroundColor: '#e5e5e3',
         transition: 'all 0.3s ease',
-        py: isScrolled ? { xs: 0.75, md: 1 } : { xs: 1.25, md: 1.5 }
+        py: isScrolled ? { xs: 0.75, md: 1 } : { xs: 1.25, md: 1.5 },
       }}
     >
       <Container maxWidth="lg">
@@ -150,7 +145,7 @@ const Header = ({ cartItems = [], onCartOpen }) => {
                 color: 'primary.main',
                 textDecoration: 'none',
                 display: { xs: 'none', sm: 'block' },
-                fontSize: { sm: '1.125rem', md: '1.25rem' }
+                fontSize: { sm: '1.125rem', md: '1.25rem' },
               }}
             >
               Fresh Fruits
@@ -159,47 +154,47 @@ const Header = ({ cartItems = [], onCartOpen }) => {
 
           {isMobile ? (
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <IconButton 
-                color="primary" 
-                aria-label="cart" 
+              <IconButton
+                color="primary"
+                aria-label="cart"
                 onClick={onCartOpen}
-                sx={{ 
+                sx={{
                   mr: 1,
-                  display: isSmall ? 'none' : 'flex'
+                  display: isSmall ? 'none' : 'flex',
                 }}
               >
-                <Badge 
-                  badgeContent={cartItemCount} 
+                <Badge
+                  badgeContent={cartItemCount}
                   color="primary"
                   sx={{
                     '& .MuiBadge-badge': {
                       fontSize: '0.75rem',
                       height: 18,
-                      minWidth: 18
-                    }
+                      minWidth: 18,
+                    },
                   }}
                 >
                   <ShoppingCartIcon />
                 </Badge>
               </IconButton>
-              <IconButton 
-                color="primary" 
-                aria-label="cart" 
+              <IconButton
+                color="primary"
+                aria-label="cart"
                 onClick={onCartOpen}
-                sx={{ 
+                sx={{
                   mr: 1,
-                  display: isSmall ? 'flex' : 'none'
+                  display: isSmall ? 'flex' : 'none',
                 }}
               >
-                <Badge 
-                  badgeContent={cartItemCount} 
+                <Badge
+                  badgeContent={cartItemCount}
                   color="primary"
                   sx={{
                     '& .MuiBadge-badge': {
                       fontSize: '0.75rem',
                       height: 18,
-                      minWidth: 18
-                    }
+                      minWidth: 18,
+                    },
                   }}
                 >
                   <ShoppingCartIcon />
@@ -212,7 +207,7 @@ const Header = ({ cartItems = [], onCartOpen }) => {
                 onClick={toggleDrawer(true)}
                 sx={{
                   border: '1px solid',
-                  borderColor: 'rgba(0, 0, 0, 0)'
+                  borderColor: 'rgba(0, 0, 0, 0)',
                 }}
               >
                 <MenuIcon />
@@ -223,8 +218,8 @@ const Header = ({ cartItems = [], onCartOpen }) => {
                 onClose={toggleDrawer(false)}
                 PaperProps={{
                   sx: {
-                    width: { xs: '100%', sm: 300 }
-                  }
+                    width: { xs: '100%', sm: 300 },
+                  },
                 }}
               >
                 {drawerList}
@@ -238,8 +233,8 @@ const Header = ({ cartItems = [], onCartOpen }) => {
                     key={item.name}
                     component={Link}
                     href={item.path}
-                    sx={{ 
-                      color: 'text.primary', 
+                    sx={{
+                      color: 'text.primary',
                       mx: 2,
                       fontWeight: 500,
                       fontSize: '0.9375rem',
@@ -248,30 +243,30 @@ const Header = ({ cartItems = [], onCartOpen }) => {
                       transition: 'color 0.2s ease',
                       '&:hover': {
                         color: 'primary.main',
-                      }
+                      },
                     }}
                   >
                     {item.name}
                   </Typography>
                 ))}
               </Box>
-              <IconButton 
-                color="primary" 
-                aria-label="cart" 
+              <IconButton
+                color="primary"
+                aria-label="cart"
                 onClick={onCartOpen}
-                sx={{ 
+                sx={{
                   ml: 1,
                 }}
               >
-                <Badge 
-                  badgeContent={cartItemCount} 
+                <Badge
+                  badgeContent={cartItemCount}
                   color="primary"
                   sx={{
                     '& .MuiBadge-badge': {
                       fontSize: '0.75rem',
                       height: 18,
-                      minWidth: 18
-                    }
+                      minWidth: 18,
+                    },
                   }}
                 >
                   <ShoppingCartIcon />

@@ -7,17 +7,17 @@ import { fadeIn, staggerContainer } from '../utils/animations';
 
 const Features = () => {
   return (
-    <Box 
+    <Box
       component={motion.section}
       variants={fadeIn}
-      sx={{ 
+      sx={{
         py: { xs: 4, md: 8 },
-        backgroundColor: '#f9f9f9'
+        backgroundColor: '#f9f9f9',
       }}
     >
       <Container maxWidth="lg">
-        <Grid 
-          container 
+        <Grid
+          container
           spacing={6}
           justifyContent="center"
           alignItems="center"
@@ -27,23 +27,19 @@ const Features = () => {
           animate="visible"
         >
           {features.map((feature, index) => (
-            <Grid 
-              item 
-              xs={12} 
-              md={4} 
+            <Grid
+              item
+              xs={12}
+              md={4}
               key={feature.id}
               sx={{
                 display: 'flex',
-                justifyContent: 'center'
+                justifyContent: 'center',
               }}
               component={motion.div}
               variants={fadeIn}
             >
-              <FeatureCard 
-                feature={feature} 
-                index={index} 
-                isLast={index === features.length - 1} 
-              />
+              <FeatureCard feature={feature} index={index} isLast={index === features.length - 1} />
             </Grid>
           ))}
         </Grid>

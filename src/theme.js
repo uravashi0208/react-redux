@@ -27,7 +27,8 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: 'Poppins, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+    fontFamily:
+      'Poppins, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
     h1: {
       fontWeight: 700,
       fontSize: '2.75rem', // ~44px

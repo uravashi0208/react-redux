@@ -12,11 +12,12 @@ const BannerOverlay = ({ children }) => {
           left: 0,
           width: '100%',
           height: '100%',
-          background: 'linear-gradient(135deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.3) 100%)',
-          zIndex: 1
+          background:
+            'linear-gradient(135deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.3) 100%)',
+          zIndex: 1,
         }}
       />
-      
+
       {/* Additional overlay for text area */}
       <Box
         sx={{
@@ -25,11 +26,12 @@ const BannerOverlay = ({ children }) => {
           left: 0,
           width: { xs: '100%', md: '60%' },
           height: '100%',
-          background: 'linear-gradient(90deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.1) 70%, transparent 100%)',
-          zIndex: 1
+          background:
+            'linear-gradient(90deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.1) 70%, transparent 100%)',
+          zIndex: 1,
         }}
       />
-      
+
       {children}
     </>
   );

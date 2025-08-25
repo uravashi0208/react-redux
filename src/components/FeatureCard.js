@@ -8,7 +8,7 @@ import { bounce, hoverScale } from '../utils/animations';
 const FeatureCard = ({ feature, index, isLast }) => {
   // Map icons to feature IDs
   const getIcon = (id) => {
-    switch(id) {
+    switch (id) {
       case 1:
         return <AppleIcon sx={{ fontSize: 40, color: '#75c32c' }} />;
       case 2:
@@ -36,7 +36,7 @@ const FeatureCard = ({ feature, index, isLast }) => {
         transition: 'all 0.3s ease',
         '&:hover': {
           backgroundColor: 'rgba(117, 195, 44, 0.05)',
-          transform: 'translateY(-4px)'
+          transform: 'translateY(-4px)',
         },
         '&::after': {
           content: '""',
@@ -46,8 +46,8 @@ const FeatureCard = ({ feature, index, isLast }) => {
           width: { xs: '80%', md: 1 },
           height: { xs: 1, md: '60%' },
           backgroundColor: 'rgba(255,255,255,0)',
-          display: isLast ? 'none' : 'block'
-        }
+          display: isLast ? 'none' : 'block',
+        },
       }}
     >
       <Box
@@ -57,7 +57,7 @@ const FeatureCard = ({ feature, index, isLast }) => {
           mr: 3,
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'center'
+          justifyContent: 'center',
         }}
       >
         {getIcon(feature.id)}
@@ -70,7 +70,7 @@ const FeatureCard = ({ feature, index, isLast }) => {
             fontWeight: 600,
             fontSize: { xs: '1.115rem', md: '1.12em' },
             mb: 0.5,
-            color: '#2B2F38'
+            color: '#2B2F38',
           }}
         >
           {feature.title}
@@ -80,7 +80,7 @@ const FeatureCard = ({ feature, index, isLast }) => {
           variant="body2"
           sx={{
             color: 'text.secondary',
-            fontSize: { xs: '0.875rem', md: '0.9375rem' }
+            fontSize: { xs: '0.875rem', md: '0.9375rem' },
           }}
         >
           {feature.description}

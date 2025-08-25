@@ -39,7 +39,7 @@ const CategoryCard = ({ category }) => {
           alignItems: 'center',
           backgroundColor: '#f4f2f0',
           padding: 2,
-          overflow: 'hidden'
+          overflow: 'hidden',
         }}
       >
         <Box
@@ -51,43 +51,43 @@ const CategoryCard = ({ category }) => {
             width: '100%',
             height: '100%',
             objectFit: 'cover',
-            borderRadius:3
+            borderRadius: 3,
           }}
         />
       </Box>
-      
+
       <CardContent
         sx={{
           p: { xs: 3, md: 3 },
-          textAlign: 'left'
+          textAlign: 'left',
         }}
       >
-        <Typography 
+        <Typography
           component={motion.h3}
-          variant="h5" 
-          sx={{ 
-            mb: 1.5, 
+          variant="h5"
+          sx={{
+            mb: 1.5,
             fontWeight: 600,
             fontSize: { xs: '1.25rem', md: '1.35rem' },
-            color: '#2B2F38'
+            color: '#2B2F38',
           }}
         >
           {category.name}
         </Typography>
-        
-        <Typography 
+
+        <Typography
           component={motion.p}
-          variant="body2" 
-          sx={{ 
-            mb: 3, 
+          variant="body2"
+          sx={{
+            mb: 3,
             color: 'text.secondary',
             fontSize: { xs: '0.875rem', md: '0.9375rem' },
-            lineHeight: 1.6
+            lineHeight: 1.6,
           }}
         >
           {category.description}
         </Typography>
-        
+
         <MotionButton
           component={RouterLink}
           to={to}
@@ -103,10 +103,10 @@ const CategoryCard = ({ category }) => {
             letterSpacing: 1,
             padding: 0,
             '& .MuiSvgIcon-root': {
-              transition: 'transform 0.3s ease'
-            }
+              transition: 'transform 0.3s ease',
+            },
           }}
-          >
+        >
           See collection
         </MotionButton>
       </CardContent>

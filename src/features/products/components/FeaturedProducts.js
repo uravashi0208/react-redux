@@ -7,7 +7,7 @@ import { fadeIn } from '../../../utils/animations';
 
 const FeaturedProducts = ({ onAddToCart }) => {
   return (
-    <Box 
+    <Box
       component={motion.section}
       variants={fadeIn}
       sx={{ py: { xs: 6, md: 10 }, backgroundColor: '#ffffff' }}
@@ -17,7 +17,7 @@ const FeaturedProducts = ({ onAddToCart }) => {
           title="Featured Fruits"
           subtitle="Discover our freshest and most-loved fruits—handpicked varieties perfect for snacks, smoothies, and your healthy lifestyle."
         />
-        
+
         <ProductGrid products={products} onAddToCart={onAddToCart} />
       </Container>
     </Box>

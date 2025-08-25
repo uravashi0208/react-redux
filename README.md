@@ -104,13 +104,11 @@ src/
 ## 📱 Pages & Routing
 
 1. **Home (`/`)**:
-
    - Hero section with call-to-action
    - Featured products showcase
    - Benefits/features section
 
 2. **Products (`/products`)**:
-
    - Complete product catalog
    - Category filtering
    - Product grid layout
